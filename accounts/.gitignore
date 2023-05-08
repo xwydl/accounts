@@ -1,0 +1,4 @@
+# 忽略node_modules文件夹
+/accounts/node_modules
+/accounts/public/images
+/accounts/public/javascripts

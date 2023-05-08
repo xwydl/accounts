@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>账单列表</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.css" rel="stylesheet" />
+    <style>
+        .account {
+            height: 204px;
+        }
+        
+        .glyphicon {
+            display: none;
+        }
+        
+        .panel:hover .glyphicon {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-lg-8 col-lg-offset-2">
+
+                <div class="col-xs-12" style="padding-top: 20px;">
+                    <div class="row text-right">
+                        <form action="/users/logout" method="POST" role="form">
+                            <button class="btn btn-danger">退出登录</button>
+                        </form>
+                    </div>
+                </div>
+                <hr>
+
+                <div class="row">
+                    <h2 class="col-xs-6">记账本</h2>
+                    <h2 class="col-xs-6 text-right"><a href="/account/create" class="btn btn-primary">添加账单</a></h2>
+                </div>
+                <hr>
+                <div class="accounts">
+                    <% accounts.forEach((item)=>{ %>
+                        <div class="panel <%= item.type===1?'panel-success' :'panel-danger'%>">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">
+                                    <%= moment(item.time).format('YYYY-MM-DD')%>
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="col-xs-6">
+                                    <%= item.title%>
+                                        (
+                                        <%=item.remarks%> )
+                                </div>
+                                <div class="col-xs-2">
+                                    <span class="label <%= item.type===1?'label-success' :'label-warning'%>"><%= item.type===1?'收入':'支出'%></span>
+                                </div>
+                                <div class="col-xs-2 text-right">
+                                    <%= item.account%>元
+                                </div>
+                                <div class="col-xs-2 text-right">
+                                    <a class="delBtn" href="/account/<%= item._id%>">
+                                        <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <%})%>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/list.js"></script>
+</body>
+
+</html>
